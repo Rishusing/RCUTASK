@@ -1,35 +1,33 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { NavLink, useHistory } from 'react-router-dom'
-import Navbar from './Navbar';
+import { NavLink, useNavigate } from 'react-router-dom'
+
 
 
 function Login() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [msg, setMsg] = useState('')
 
-    const loginUser = async (e) => {
-        // console.log(email,password)
+    const loginUser =  (e) => {
         e.preventDefault();
         if (email === "" || password === "") {
             setMsg('All field are require')
         } else {
-            axios.post('/signin', { email, password })
+            axios.post('/api/signin', { email, password })
                 .then((res) => {
                     console.log(res);
-                    history.push("/")
+                    navigate('/')
                 }).catch((err) => {
                     console.log(err);
                     setMsg('Invalid Email/Password')
-                });
+               });
         }
     }
 
     return (
         <div className="body">
-            <Navbar/>
             <div className="container main">
                 <h3 id="err">{msg}</h3>
                 <div className="title">Login</div>
@@ -45,7 +43,7 @@ function Login() {
                             </div>
                             <div className="input-box">
                                 <span className="details">Password</span>
-                                <input type="text" name="password" placeholder="Password"
+                                <input type="password" name="password" placeholder="Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />

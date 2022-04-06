@@ -1,71 +1,77 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import Navbar from './Navbar'
 
+const Event = () => {
 
-const Evevnt = () => {
-
-    const history = useHistory();
+    const navigate = useNavigate();
     const [event, setEvent] = useState("");
     const [date, setDate] = useState("");
     const [msg, setMsg] = useState("");
     const [all, setPost] = useState([])
-    const data = {event, date};
+    
+    
+    const data = { event, date };
+    data.passedAway = true
+
     const PostEvent = async (e) => {
         e.preventDefault();
-        axios.post('/addEvent', { data })
+        setPost([...all, data]);
+        
+        axios.post('/api/addEvent', { data })
             .then((res) => {
-                setMsg("Event is added. Refresh page to see event");
+                setMsg("Task is added");
+                setEvent("");
             }).catch((err) => {
                 setMsg("Login Please");
             });
     }
 
-    const callEvent = async () => {
-        axios.get('/findEvent')
-        .then((res) => {
-                setPost(res.data);
-            }).catch((err) => {
-                history.push('/signin')
-            });
-    }
-
-    if(Object.keys(all).length !== 0){
-       var eve = all.map(ele => JSON.parse(ele))
-    }
     useEffect(() => {
+        const callEvent = async () => {
+            axios.get('/api/findEvent')
+                .then((res) => {
+                    setPost(res.data);
+                }).catch((err) => {
+                    navigate('/login')
+                });
+        }
         callEvent();
     }, [])
 
-    var key=0;
     return (
         <>
-            <Navbar />
             <div className="homePage">
                 <div className="event-container">
                     <div className="event-container-left">
                         {
-                            eve === undefined ? <h2>No Data</h2>:eve.map((ele) => (
-                                <div className="card" key={key++}><h3>{ele.event}</h3><br /><h4>{ele.date}</h4></div>
+                            all === undefined ? <h2>No Data</h2> :
+                                
+                                all.map((ele, ind) => (
+                                
+                                <div className="card" key={ind}><span><h3>{ele.event}</h3></span>
+                                    {
+                                        ele.passedAway ? <span className='success'>You have time</span>:<span className='fail'>Deadline Expire</span>
+                                    }
+                                    <br /><h4>{ele.date}</h4></div>
                             ))
                         }
                     </div>
                     <div className="event-container-right">
                         <div className="inputField">
                             <h4 id="msg">{msg}</h4>
-                            <div className="title"><h2>Add Event</h2></div>
+                            <div className="title"><h2>Add Task</h2></div>
                             <div className="content">
                                 <form method="POST">
                                     <div className="user-details">
                                         <div className="input-box">
-                                            <span className="details">Event</span>
+                                            <span className="details">Task Name</span>
                                             <input type="text" name="title" value={event} placeholder="Title of Event"
                                                 onChange={(e) => setEvent(e.target.value)}
                                             />
                                         </div>
                                         <div className="input-box">
-                                            <span className="details">Date</span>
+                                            <span className="details">Deadline Date</span>
                                             <input type="date" name="date" value={date}
                                                 onChange={(e) => setDate(e.target.value)}
                                             />
@@ -84,4 +90,4 @@ const Evevnt = () => {
     )
 }
 
-export default Evevnt
+export default Event

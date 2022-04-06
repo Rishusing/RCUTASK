@@ -6,6 +6,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+body{
+    background-image: linear-gradient(rgb(0, 255, 213), rgb(200, 0, 255));
+}
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -27,60 +30,36 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #9809a5; 
   }
-
-.navbar {
+.navbar{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    top: 0%;
-    /* background: rgb(238,174,202); */
-    /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-    height: 9vh;
-    position: fixed;
+    /* background-color: #71b7e6; */
+    
 }
 
-.navbar .nav-links {
-    position: absolute;
-    right: 0%;
+.navbar .home{
+    margin-left: 10px;
 }
 
-.navbar .nav-logo a {
-    color: black;
+.navbar .home a{
     text-decoration: none;
-    width: 100%;
-    height: 100%;
-    font-size: 1.2rem;
+    font-weight: 500;
+    font-size: 2rem;
 }
 
-.navbar .nav-logo  {
-    height: 100%;
-}
-.navbar .nav-logo a h4  {
-    padding: 22%;
-    /* margin: 8px 8px; */
+.navbar .profilePic {
+    margin-right: 10px;
 }
 
-.navbar .nav-links ul {
-    margin-right: 3vw;
-    display: flex;
-    list-style: none;
-}
-
-.navbar .nav-links ul li {
-    /* margin-right: 3vw; */
-    margin-top: 2.5vh;
-}
-
-.navbar .nav-links ul li a {
-    color: black;
-    text-decoration: none;
-    font-family: monospace;
-    font-size: 1.1rem;
+.navbar .profilePic img{
+    border-radius: 50%;
 }
 
 /* css of register */
 .main{
     margin-top: 70px;
-    background-image: url('./image/bg.png');
 }
 
 .body {
@@ -89,16 +68,12 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-image: url('./image/bg3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .container {
     max-width: 700px;
     width: 100%;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.226);
     padding: 25px 30px;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgb(186, 21, 252);
@@ -230,11 +205,8 @@ form .button input:hover {
     height: 100vh;
     display: flex;
     height: 100vh;
-    background-image: url('./image/bg3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
+
 
 .homePage .content-left{
     width: 50%;
@@ -242,7 +214,36 @@ form .button input:hover {
     flex-direction: column;
 }
 .homePage .content-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
+}
+
+@media (max-width: 692px) {
+    .homePage {
+        display: flex;
+        flex-direction: column;
+        height: 1200px;
+        width: 100%;
+    }
+    .homePage .content-left {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .homePage .content-right {
+        width: 100%;
+    }
+    .homePage .content-left .square {
+        width: 100%;
+        height: 500px;
+        margin: 0px auto;
+        background: rgba(200, 47, 247, 0.849);
+        border-radius: 2px;
+    }
+    
 }
 
 .homePage .content-left .circle{
@@ -252,7 +253,7 @@ form .button input:hover {
     background: rgb(49, 238, 191);
     position: relative;
     top: 12%;
-    /* border: 2px solid white; */
+    border: 2px solid white;
     backdrop-filter: blur(10px);
     opacity: 0.75;
 }
@@ -272,10 +273,11 @@ form .button input:hover {
     background: rgb(49, 238, 191);
     position: relative;
     bottom: 12%;
-    /* border: 2px solid white; */
+    border: 2px solid white;
     backdrop-filter: blur(10px);
     opacity: 0.75;
 }
+
 .homePage .content-right a{
     text-decoration: none;
     color: white;
@@ -284,37 +286,47 @@ form .button input:hover {
     font-size: 15px;
 }
 
-.homePage .content-right #btn{
+.homePage .content-right .btn{
     width: 200px;
     height: 40px;
     background: rgb(205, 74, 245);
     border: none;
-    margin-top: 250px;
-    margin-left: 12vw;
+    
     border-radius: 20px;
 }
 
 .event-container{
     width: 100%;
     height: 100%;
+    margin-top: 0%;
     display: flex;
+    flex-direction: row-reverse;
 }
+
+@media (max-width: 592px){
+    .event-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+}
+
 .event-container-left{
     background-color: rgba(255, 255, 255, 0.452);
     border-radius: 5px;
     border: 2px solid white;
-    margin-top: 80px;
     height: 85%;
-    width: 50%;
+    width: 100%;
     overflow-y: auto;
 }
 .event-container-right{
     background-color: rgba(255, 255, 255, 0.452);
     border-radius: 5px;
     border: 2px solid white;
-    margin-top: 80px;
     height: 70%;
-    width: 50%;
+    width: 100%;
 }
 
 .inputField{
@@ -356,4 +368,18 @@ form .button input:hover {
     margin-top: 50px;
     color: white;
     font-family: 'Poppins', sans-serif;
+}
+
+.success{
+    color: rgb(2, 100, 2);
+    float: right;
+    margin-right: 10px;
+    font-weight: 800;
+}
+
+.fail{
+    color: red;
+    float: right;
+    margin-right: 10px;
+    font-weight: 800;
 }

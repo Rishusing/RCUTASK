@@ -1,23 +1,22 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-import { NavLink, useHistory } from 'react-router-dom'
-import Navbar from './Navbar';
+import { NavLink, useNavigate } from 'react-router-dom'
+
 
 function Register() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [err, setErr] = useState('')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
-    // const user = { name, email, password, cpassword };
+    
     const PostData = async (e) => {
         e.preventDefault();
         if (password !== cpassword) {
             setErr('Password mismatch')
         } else {
             try{
-                let res = await fetch('/register',{
+                let res = await fetch('/api/signup',{
                     method:'POST',
                     headers:{
                         'Accept':'application/json',
@@ -27,13 +26,13 @@ function Register() {
                         name , email, password ,cpassword
                     })
                 })
-                
+            
                 if(res.status === 400){
                     setErr('All fields are require')
                 }else if(res.status === 404){
                     setErr('Email already exist')
                 }else{
-                    history.push('/')
+                    navigate('/login')
                 }
             }catch(e){
                 setErr('Something went wrong')
@@ -42,7 +41,7 @@ function Register() {
     }
     return (
         <div className='body'>
-            <Navbar/>
+            
             <div className="container main">
                 <h4 id="error">{err}</h4>
                 <div className="title">Registration</div>

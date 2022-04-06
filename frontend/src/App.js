@@ -3,37 +3,25 @@ import Login from './component/Login'
 import Register from './component/Register'
 import Home from './component/Home'
 import Error from './component/Error';
-import Navbar from './component/Navbar';
 import Event from './component/Event'
-import { Route, Switch } from 'react-router-dom'
-import Test from './component/Test';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from './component/Navbar';
+
 
 
 function App() {
 
   return (
-    <>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/event">
-          <Event/>
-        </Route>
-        <Route path="/test">
-          <Test/>
-        </Route>
-        <Route>
-          <Error />
-        </Route>
-      </Switch>
-    </>
+    <BrowserRouter>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/event" element={<Event />} />
+        <Route  element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
