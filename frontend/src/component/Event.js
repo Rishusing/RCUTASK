@@ -9,8 +9,7 @@ const Event = () => {
     const [date, setDate] = useState("");
     const [msg, setMsg] = useState("");
     const [all, setPost] = useState([])
-    
-    
+        
     const data = { event, date };
     data.passedAway = true
 
@@ -23,7 +22,7 @@ const Event = () => {
                 setMsg("Task is added");
                 setEvent("");
             }).catch((err) => {
-                setMsg("Login Please");
+                setMsg("Something Wrong");
             });
     }
 

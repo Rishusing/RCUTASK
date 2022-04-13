@@ -3,22 +3,21 @@ import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 
-
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [msg, setMsg] = useState('')
 
-    const loginUser =  (e) => {
+    const loginUser =  async(e) => {
         e.preventDefault();
         if (email === "" || password === "") {
             setMsg('All field are require')
         } else {
             axios.post('/api/signin', { email, password })
                 .then((res) => {
-                    console.log(res);
-                    navigate('/')
+                    // console.log(res);
+                    navigate('/event')
                 }).catch((err) => {
                     console.log(err);
                     setMsg('Invalid Email/Password')

@@ -14,7 +14,7 @@ router.post('/signup', async (req, res) => {
     if (!name || !email || !password || !cpassword) {
         return res.status(400).json({ error: "! plz filled all field" })
     }
-    
+
     try {
         const userExist = await User.findOne({ email: email })
         if (userExist) {
@@ -33,6 +33,7 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
 
     try {
+
         const { email, password } = req.body;
         const userLogin = await User.findOne({ email })
         if (!userLogin) {
@@ -64,10 +65,9 @@ router.get('/findEvent', authenticate, async (req, res) => {
     const allEvents = req.rootUser.events;
     if (Object.keys(allEvents).length !== 0) {
         var eve = allEvents.map(ele => JSON.parse(ele))
-    }
-    const dd = format(new Date());
+        const dd = format(new Date());
 
-    for (let i = 0;eve && i < eve.length; i++) {
+        for (let i = 0; eve && i < eve.length; i++) {
             if (eve[i].date > dd) {
                 eve[i].passedAway = true;
             }
@@ -75,25 +75,22 @@ router.get('/findEvent', authenticate, async (req, res) => {
                 eve[i].passedAway = false;
             }
         }
-        
-    if (!eve) {
-        res.send([{event: "No Data found"}]);
-    }
-    else
-    {
         res.send(eve);
-    }
 
-    
+    }
+    else {
+        res.send([{ event: "No Data found" }]);
+    }
 
 })
 
 router.post('/addEvent', authenticate, async (req, res) => {
+    
     const user = await User.findOne({ _id: req.userID })
     const data = JSON.stringify(req.body.data);
     user.events = user.events.concat(data)
     await user.save()
-    res.send({ msg: "success" })
+    res.send({msg : "Task added"})
 })
 
 

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+
 
 
 function Register() {
@@ -15,25 +18,35 @@ function Register() {
         if (password !== cpassword) {
             setErr('Password mismatch')
         } else {
-            try{
-                let res = await fetch('/api/signup',{
-                    method:'POST',
-                    headers:{
-                        'Accept':'application/json',
-                        'Content-type':'application/json'
-                    },
-                    body:JSON.stringify({
-                        name , email, password ,cpassword
-                    })
-                })
-            
-                if(res.status === 400){
-                    setErr('All fields are require')
-                }else if(res.status === 404){
-                    setErr('Email already exist')
-                }else{
+            try {
+
+                axios.post('/api/signup', { name , email, password ,cpassword })
+                .then((res) => {
                     navigate('/login')
-                }
+                }).catch((err) => {
+                    setErr('Email already exist')
+                    
+               });
+                
+
+                // let res = await fetch('/api/signup',{
+                //     method:'POST',
+                //     headers:{
+                //         'Accept':'application/json',
+                //         'Content-type':'application/json'
+                //     },
+                //     body:JSON.stringify({
+                //         name , email, password ,cpassword
+                //     })
+                // })
+            
+                // if(res.status === 400){
+                //     setErr('All fields are require')
+                // }else if(res.status === 404){
+                //     setErr('Email already exist')
+                // }else{
+                //     navigate('/login')
+                // }
             }catch(e){
                 setErr('Something went wrong')
             }
