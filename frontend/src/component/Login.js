@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
-
+import {loginRoute} from '../utils/APIRoutes'
 
 function Login() {
     const navigate = useNavigate();
@@ -14,10 +14,10 @@ function Login() {
         if (email === "" || password === "") {
             setMsg('All field are require')
         } else {
-            axios.post('/api/signin', { email, password })
+            axios.post(loginRoute, { email, password })
                 .then((res) => {
-                    // console.log(res);
-                    navigate('/event')
+                    console.log(res);
+                    navigate('/')
                 }).catch((err) => {
                     console.log(err);
                     setMsg('Invalid Email/Password')

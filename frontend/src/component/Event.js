@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { getRoute, addRoute } from '../utils/APIRoutes'
+
 
 const Event = () => {
 
@@ -17,7 +19,7 @@ const Event = () => {
         e.preventDefault();
         setPost([...all, data]);
         
-        axios.post('/api/addEvent', { data })
+        axios.post(addRoute, { data })
             .then((res) => {
                 setMsg("Task is added");
                 setEvent("");
@@ -28,7 +30,7 @@ const Event = () => {
 
     useEffect(() => {
         const callEvent = async () => {
-            axios.get('/api/findEvent')
+            axios.get(getRoute)
                 .then((res) => {
                     setPost(res.data);
                 }).catch((err) => {
@@ -36,7 +38,7 @@ const Event = () => {
                 });
         }
         callEvent();
-    }, [])
+    },[])
 
     return (
         <>

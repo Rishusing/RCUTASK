@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
-
+    
     try {
 
         const { email, password } = req.body;
@@ -63,6 +63,7 @@ router.post('/signin', async (req, res) => {
 router.get('/findEvent', authenticate, async (req, res) => {
 
     const allEvents = req.rootUser.events;
+    console.log(allEvents);
     if (Object.keys(allEvents).length !== 0) {
         var eve = allEvents.map(ele => JSON.parse(ele))
         const dd = format(new Date());

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {registerRoute} from '../utils/APIRoutes'
 
 
 
@@ -20,7 +21,7 @@ function Register() {
         } else {
             try {
 
-                axios.post('/api/signup', { name , email, password ,cpassword })
+                axios.post(registerRoute, { name , email, password ,cpassword })
                 .then((res) => {
                     navigate('/login')
                 }).catch((err) => {
